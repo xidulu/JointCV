@@ -112,6 +112,9 @@ class MFVI_with_subsampling:
 
 
 class MFVI_with_subsampling_naive(MFVI_with_subsampling):
+    '''
+    Using naive doubly stochastic gradient
+    '''
     def run(self, step_size=1e-3, seed=1, opt='adam', batch_size=5, num_iters=10000,
                     init_sigma=0.001, local_reparam=False, log_frequency=100):
         key = PRNGKey(seed)
@@ -147,7 +150,7 @@ class MFVI_with_subsampling_naive(MFVI_with_subsampling):
 
 class MFVI_with_subsampling_jointCV(MFVI_with_subsampling):
     """
-    SVRG version of joint cv
+    Using the SVRG version of joint control variate
     """
     @partial(jax.jit, static_argnums=(0,))
     def get_hessian_vector_product(self, params, idx, eps):
